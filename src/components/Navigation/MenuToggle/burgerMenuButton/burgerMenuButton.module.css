@@ -1,0 +1,25 @@
+
+.menuItem{
+    background-color: black;
+    width: 40px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 3px;
+}
+
+.menuItemClose:first-child{
+    background-color: black;
+    width: 40px;
+    height: 8px;
+    border-radius: 3px;
+    margin-top: 5px;
+    transform: rotate(45deg) translateY(9px);
+}
+.menuItemClose:last-child{
+    background-color: black;
+    width: 40px;
+    height: 8px;
+    border-radius: 3px;
+    margin-top: 5px;
+    transform: rotate(-45deg) translateY(-9px);
+}

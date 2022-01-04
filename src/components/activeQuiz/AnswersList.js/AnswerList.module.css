@@ -1,0 +1,21 @@
+.answersList{
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    list-style-type:none;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    margin: 10px;
+}
+
+.succes{
+    background-color: #98DA78;
+    color: black;
+    transition: background-color 0.5s;
+}
+.error{
+    background-color: #d35858;
+    color: white;
+    transition: background-color 0.5s;
+}

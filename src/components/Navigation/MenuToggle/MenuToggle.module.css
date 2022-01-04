@@ -1,0 +1,13 @@
+.menuToggle{
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+    z-index: 5;
+}
+.open{
+    position: fixed;
+    left: 27%;
+    transition: 0.7s;
+}

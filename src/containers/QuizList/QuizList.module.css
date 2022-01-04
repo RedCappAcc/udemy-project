@@ -1,0 +1,10 @@
+.quizList{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quizList li{
+    font-size: 25px;
+    list-style-type: none;
+    margin: 10px;
+}

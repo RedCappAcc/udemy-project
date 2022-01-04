@@ -1,0 +1,40 @@
+.finished{
+    border: 3px solid white;
+    border-radius: 5px;
+    padding: 15px;
+    color:white;
+    font-size: 18px;
+}
+.answer{
+    padding: 10px 0px;
+}
+.answerItem{
+    display: flex;
+    align-items: center;
+}
+.answerItem span{
+    margin-right: 10px;
+}
+
+.try{
+    width: 100px;
+    height: 30px;
+    margin: 15px 0px;
+    border-radius: 5px;
+    background-color: rgb(81, 151, 241);
+    border: none;
+    color: white;
+}
+.returnForTestList{
+    width: 200px;
+    height: 29px;
+    margin: 15px 0px;
+    margin-left: 15px;
+    border-radius: 5px;
+    background-color: rgb(79, 185, 93);
+    border: none;
+    color: black;
+}
+.buttons {
+    display: flex;
+}

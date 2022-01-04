@@ -1,0 +1,29 @@
+.menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 30%;
+    font-size: 20px;
+    height: 100%;
+    transition: 0.7s;
+    transform: translateX(-100%);
+    z-index: 4;
+}
+
+.menu li{
+    margin: 50px;
+}
+.menu ul{
+    list-style-type: none
+}
+.open{
+    transform: translateX(0%);
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+.active{
+    color:red;
+}
