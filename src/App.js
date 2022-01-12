@@ -3,7 +3,7 @@ import Layout from "./hoc/layout/Layout"
 import Quiz from "./containers/quiz/quiz"
 import { Provider } from 'react-redux'
 import store from './redux/store'
-import {Routes,Route,Router} from 'react-router-dom'
+import {Routes,Route} from 'react-router-dom'
 import Auth from "./containers/Auth/Auth"
 import QuizCreator from  "./containers/QuizCreator/QuizCreator"
 import QuizList from "./containers/QuizList/QuizList"

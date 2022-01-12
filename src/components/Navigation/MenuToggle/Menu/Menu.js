@@ -16,8 +16,7 @@ function Menu(props){
                 <li key = {index}>
                     <NavLink 
                     to={el.to} 
-                    exact ={el.exact} 
-                    activeClassName={classes.active}
+                    exact ={el.exact.toString()} 
                     onClick = {props.onClickBackDrop }
                     >{el.ladel}</NavLink>
                 </li>

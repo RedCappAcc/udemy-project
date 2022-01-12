@@ -1,0 +1,53 @@
+.QuizCreator{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.question{
+    background-color: rgba(204, 204, 204,0.7);
+    width: 600px;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.variants{
+    background-color: rgba(204, 204, 204,0.7);
+    width: 600px;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.variants label{
+    font-size: 20px;
+}
+.variants select {
+    font-size: 20px;
+}
+.add{
+    width: 220px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: #6BB7F1 ;
+    color:white;
+    font-weight: bold;
+    margin-top: 30px;
+}
+.create{
+    width: 160px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: #88DB9B;
+    color:white;
+    font-weight: bold;
+}
+.notValid{
+    background-color: rgba(121, 121, 121,0.7);
+}
