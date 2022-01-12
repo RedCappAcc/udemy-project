@@ -1,6 +1,7 @@
 import classes from './Auth.module.css'
 import Input from '../../components/UI/input/input'
 import { useState} from 'react'
+import axios from 'axios'
 
 function Auth(){
         let [email,setEmail] =  useState({
@@ -25,19 +26,42 @@ function Auth(){
     function submitHadler(event){
         event.preventDefault()
     }
-    function loginHadler(){
+    async function loginHadler(){
         if (email.valid&&password.valid){
-            console.log('login')
-             ///дальше нужно описать логику для входа
+            const authData = {
+                email:email.value,
+                password:password.value,
+                returnSecureToken:true
+            }
+            try{
+                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5J1e80f4UCAouCmmbnNXEYQi5P9mMMTs',authData)
+                alert('Успешно ' + response.status)
+            }
+            catch(e){
+                alert(e)
+                console.log(e)
+            }
         }
+    }
 
-    }
-    function registrHandler(){
+    async function registrHandler(){
         if (email.valid&&password.valid){
-            console.log('register')
-            ///дальше нужно описать логику для регистрации
+            const authData = {
+                email:email.value,
+                password:password.value,
+                returnSecureToken:true
+            }
+            try{
+                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5J1e80f4UCAouCmmbnNXEYQi5P9mMMTs',authData)
+                alert('Успешно '+response.status)
+            }
+            catch(e){
+                alert(e)
+                console.log(e)
+            }
         }
     }
+
     function onChangeHandler(e,label){
         if (label===email.label){
             let localEmail = {...email} 

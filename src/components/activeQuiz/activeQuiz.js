@@ -3,9 +3,11 @@ import AnswersList from "./AnswersList.js/AnswersList";
 import { useSelector } from "react-redux";
 
 function ActiveQuiz (){
-    const quiz = useSelector(state => state.quiz)
-    const activeQuestion = useSelector(state=>state.activeQuestion)
-    const answer = quiz[activeQuestion].answer.map(el=><AnswersList answer = {el} rightAnswerId = {quiz[activeQuestion].rightAnswerId}/>)
+    const quiz = useSelector(state => state.quizListReducer.quiz)
+    const activeQuestion = useSelector(state=>state.quizListReducer.activeQuestion)
+    const answer = quiz[activeQuestion].answer.map((el,index)=><AnswersList key = { index } answer = {el} rightAnswerId = {quiz[activeQuestion].rightAnswerId}/>)
+        
+    
     return(
          <div className = {classes.activeQuiz}>
             <p className = {classes.quetion}>

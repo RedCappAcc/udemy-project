@@ -1,6 +1,7 @@
 import classes from './QuizCreator.module.css'
 import Input from '../../components/UI/input/input'
 import {useState,useEffect} from 'react'
+import axios from 'axios'
 
 
 
@@ -149,8 +150,13 @@ function QuizCreator(){
             makeDefaultState()
         }
     }
-    function createQuizHandler(){
-        console.log(quiz)
+    async function createQuizHandler(){
+       try{
+            const response  = await axios.post('https://udemy-quiz-751da-default-rtdb.europe-west1.firebasedatabase.app/quizes.json',quiz)
+            alert(response.status +' Тест создан')
+       }catch(e){
+            alert(e)
+       }
     }
 
     return (
