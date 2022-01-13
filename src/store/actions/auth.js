@@ -35,6 +35,8 @@ export function login(authMetod, authData){
         dispatch(loginSucces(data.idToken))
         alert('Успешно ' + response.status)
         dispatch(autoLogout(data.expiresIn))
+        redirectToHome()
+
     }
 }
 
@@ -64,4 +66,8 @@ export function autoLogin(){
             }
         }
     }
+}
+
+function redirectToHome(){
+ 
 }

@@ -31,10 +31,12 @@ function Menu(props){
             )
     
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[token])
 
     useEffect(()=>{
         dispatch(autoLogin())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])   
     function renderLinks(){
         return links.map((el,index)=>{
