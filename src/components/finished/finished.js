@@ -12,7 +12,7 @@ function Finished(){
     const quiz = useSelector(state => state.quizListReducer.quiz)
     let trueAnswer = 0
     result.map(el=>el.result).forEach(el=>{if(el){trueAnswer++}})
-    let question = result.map((el,index)=><div key = {index} className = {classes.answerItem}><span>{index+1+'. '}{el.question}</span><img src = {(el.result)?trueIcon:falseIcon}/></div>)
+    let question = result.map((el,index)=><div key = {index} className = {classes.answerItem}><span>{index+1+'. '}{el.question}</span><img src = {(el.result)?trueIcon:falseIcon} alt = ''/></div>)
     function refreshFinish(){
             dispatch(delFinshed())
             dispatch(delResult())

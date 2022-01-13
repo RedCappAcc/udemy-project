@@ -19,7 +19,6 @@ function Input (props){
         <div className={cls.join(' ')}>
             <label htmlFor={htmlFor}>{props.label}</label>
             <input 
-            value = {props.value}
             id = {htmlFor}
             type={inputType} 
             value={props.value} 

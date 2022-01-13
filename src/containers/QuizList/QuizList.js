@@ -13,6 +13,7 @@ function QuizList (){
     const dispatch = useDispatch()
     useEffect(()=>{
        dispatch(fetchQuizes())
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     function renderQuizList(){

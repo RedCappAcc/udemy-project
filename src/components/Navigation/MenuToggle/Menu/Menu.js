@@ -1,15 +1,41 @@
 import classes from "./Menu.module.css"
 import BackDrop from '../backDrop/backDrop'
 import {NavLink} from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+import {useState,useEffect} from 'react'
+import {autoLogin} from '../../../../store/actions/auth'
 
 function Menu(props){
     let cls = [classes.menu]
+    const token = useSelector(state=>state.authReducer.token)
+    const dispatch = useDispatch()
+    let [links, setLinks]= useState([])
+
+
     if (props.isOpen){
         cls.push(classes.open)
     }
-    const links = [{to:'/',ladel:'Список',exact:true},
-                   {to:'/auth',ladel:'Авторизация',exact:true},
-                   {to:'/quiz-creator',ladel:'Создать Текст',exact:true}]
+
+    useEffect(()=>{
+        if(token===null||token===''){
+            setLinks([
+                {to:'/',ladel:'Список',exact:true},
+                {to:'/auth',ladel:'Авторизация',exact:true},]
+            )
+        }
+        else{
+            setLinks([
+                {to:'/',ladel:'Список',exact:true},
+                {to:'/quiz-creator',ladel:'Создать Текст',exact:true},
+                {to:'/logout',ladel:'Выйти',exact:true},]
+            )
+    
+        }
+    },[token])
+
+    useEffect(()=>{
+        dispatch(autoLogin())
+    },[])   
     function renderLinks(){
         return links.map((el,index)=>{
             return (

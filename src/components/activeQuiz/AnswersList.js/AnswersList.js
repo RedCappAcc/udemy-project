@@ -11,12 +11,10 @@ function AnswersList (props){
     const clikable = useSelector(state =>state.quizListReducer.clikable)
     let [activeClass,setActiveClass] =  useState (classes.answersList)
 
-
     useEffect(() =>{
-        return()=>{
             dispatch(changeClicableAuto())
             setActiveClass(classes.answersList)
-            }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [activeQuestion]);
         
         

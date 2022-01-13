@@ -1,64 +1,54 @@
 import classes from './Auth.module.css'
 import Input from '../../components/UI/input/input'
 import { useState} from 'react'
-import axios from 'axios'
+import { login } from '../../store/actions/auth' 
+import {useDispatch} from 'react-redux'
 
 function Auth(){
-        let [email,setEmail] =  useState({
-            value: '',
-            type: 'email',
-            label: 'E-mail',
-            errorMessage: 'Введите корректный email',
-            valid: false,
-            touched: false,
-        })
-        let [password,setPassword] =  useState({
-            value: '',
-            type: 'password',
-            label: 'Пароль',
-            errorMessage: 'Пароль должен состоять как миниму из 8 символов',
-            valid: false,
-            touched: false,
-        })
-        let [clsLogin,setClsLogin] = useState([classes.login, classes.notValid])
-        let [clsRegistr,setClsregistr] = useState([classes.registr, classes.notValid])
+    const dispatch = useDispatch()
+    let [email,setEmail] =  useState({
+        value: '',
+        type: 'email',
+        label: 'E-mail',
+        errorMessage: 'Введите корректный email',
+        valid: false,
+        touched: false,
+    })
+    let [password,setPassword] =  useState({
+        value: '',
+        type: 'password',
+        label: 'Пароль',
+        errorMessage: 'Пароль должен состоять как миниму из 8 символов',
+        valid: false,
+        touched: false,
+    })
+    let [clsLogin,setClsLogin] = useState([classes.login, classes.notValid])
+    let [clsRegistr,setClsregistr] = useState([classes.registr, classes.notValid])
 
     function submitHadler(event){
         event.preventDefault()
     }
-    async function loginHadler(){
+    
+    
+    function loginHadler(){
         if (email.valid&&password.valid){
             const authData = {
                 email:email.value,
                 password:password.value,
                 returnSecureToken:true
             }
-            try{
-                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5J1e80f4UCAouCmmbnNXEYQi5P9mMMTs',authData)
-                alert('Успешно ' + response.status)
-            }
-            catch(e){
-                alert(e)
-                console.log(e)
-            }
+        dispatch(login('LOGIN',authData))
         }
     }
 
-    async function registrHandler(){
+    function registrHandler(){
         if (email.valid&&password.valid){
             const authData = {
                 email:email.value,
                 password:password.value,
                 returnSecureToken:true
             }
-            try{
-                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5J1e80f4UCAouCmmbnNXEYQi5P9mMMTs',authData)
-                alert('Успешно '+response.status)
-            }
-            catch(e){
-                alert(e)
-                console.log(e)
-            }
+           dispatch(login('REGISTR',authData))
         }
     }
 

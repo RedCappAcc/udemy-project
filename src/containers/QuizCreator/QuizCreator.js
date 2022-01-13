@@ -1,40 +1,54 @@
 import classes from './QuizCreator.module.css'
 import Input from '../../components/UI/input/input'
 import {useState,useEffect} from 'react'
-import axios from 'axios'
+import {createQuiz} from '../../store/actions/createQuiz'
+import { useSelector,useDispatch} from "react-redux"
+import {createQuestion} from '../../store/actions/createQuiz'
 
 
 
 function QuizCreator(){
-    let [quiz,setQuiz] = useState([])
+    let quiz = useSelector(state => state.createQuestionReducer.quiz) 
+    const dispatch = useDispatch()
 
-    let [question,setQuestion] = useState('')
-    let [varian1,setVariant1] = useState('')
-    let [varian2,setVariant2] = useState('')
-    let [varian3,setVariant3] = useState('')
-    let [varian4,setVariant4] = useState('')
-    let [rightVariant,setRightVariant] = useState('1')
+    let [question,setQuestion] = useState({
+        question:'',
+        variants:{
+            variant1:'',
+            variant2:'',
+            variant3:'',
+            variant4:'',
+        },
+        rightVariant:'1'
+        
+    })
 
-    let [touchedQuestion, setTouchedQuestion] = useState(false)
-    let [touchedVariant1, setTouchedVariant1] = useState(false)
-    let [touchedVariant2, setTouchedVariant2] = useState(false)
-    let [touchedVariant3, setTouchedVariant3] = useState(false)
-    let [touchedVariant4, setTouchedVariant4] = useState(false)
+    let [touched,setTouched] = useState({
+        touchedQuestion:false,
+        touchedVariant1:false,
+        touchedVariant2:false,
+        touchedVariant3:false,
+        touchedVariant4:false,
+    })
 
-    let [validateQuestion, setValidateQuestion] = useState(false)
-    let [validateVariant1, setValidateVariant1] = useState(false)
-    let [validateVariant2, setValidateVariant2] = useState(false)
-    let [validateVariant3, setValidateVariant3] = useState(false)
-    let [validateVariant4, setValidateVariant4] = useState(false)
+    let [validateQuestion,setValidateQuestion] = useState({
+        validateQuestion:false,
+        validateVariant1:false,
+        validateVariant2:false,
+        validateVariant3:false,
+        validateVariant4:false,
+    })
 
     let [clsAdd, setClsAdd] =useState([classes.add,classes.notValid])
     let [clsCreate,setClsCreate] = useState([classes.create,classes.notValid])
 
     function validateAll(){
-        if(validateQuestion === true&&validateVariant1===true&&validateVariant2===true&&validateVariant3===true&&validateVariant4===true){
-            return true
-        }
-        return false
+        Object.keys(validateQuestion).forEach(el=>{
+            if (validateQuestion[el]===false){
+                return false
+            }
+        })
+        return true
     }
 
     useEffect(()=>{
@@ -44,7 +58,8 @@ function QuizCreator(){
         else{
             setClsAdd([classes.add, classes.notValid])
         }
-    },[validateQuestion,validateVariant1,validateVariant2,validateVariant3,validateVariant4])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[validateQuestion])
 
     useEffect(()=>{
         if(quiz.length>0){
@@ -53,79 +68,87 @@ function QuizCreator(){
     },[quiz])
 
     function makeDefaultState(){
-        setQuestion('')
-        setVariant1('')
-        setVariant2('')
-        setVariant3('')
-        setVariant4('')
-        setRightVariant('1')
-        setTouchedQuestion('')
-        setTouchedVariant1('')
-        setTouchedVariant2('')
-        setTouchedVariant3('')
-        setTouchedVariant4('')
-        setValidateQuestion(false)
-        setValidateVariant1(false)
-        setValidateVariant2(false)
-        setValidateVariant3(false)
-        setValidateVariant4(false)
+        setQuestion({
+            question:'',
+            variants:{
+                variant1:'',
+                variant2:'',
+                variant3:'',
+                variant4:'',
+            },
+            rightVariant:'1'
+        })
+        setTouched({
+            touchedQuestion:false,
+            touchedVariant1:false,
+            touchedVariant2:false,
+            touchedVariant3:false,
+            touchedVariant4:false,
+        })
+        setValidateQuestion({
+            validateQuestion:false,
+            validateVariant1:false,
+            validateVariant2:false,
+            validateVariant3:false,
+            validateVariant4:false,
+        })
     }
 
 
     function selectChangeHadler(e){
-        setRightVariant(e.target.value)
+        setQuestion({...question,rightVariant: e.target.value})
     }
     function questionChangeHadler(e){
         const value  = e.target.value
-        setQuestion(value)
-        setTouchedQuestion(true)
+        setQuestion({...question,question:value})
+        setTouched({...touched,touchedQuestion:true})
         if(value.length>0){
-            setValidateQuestion(true)
+            setValidateQuestion({...validateQuestion,validateQuestion:true})
         }
         else{
-            setValidateQuestion(false)
+            setValidateQuestion({...validateQuestion,validateQuestion:false})
         }
     }
     function variantsChangeHadler(e,label){
         switch(label){
             case 'Вариант 1':
-                setVariant1(e.target.value)
-                setTouchedVariant1(true)
+                setQuestion({...question,variants:{...question.variants, variant1:e.target.value}})
+                setTouched({...touched,touchedVariant1:true})
                 if(e.target.value.length>0){
-                    setValidateVariant1(true)
+                    setValidateQuestion({...validateQuestion,validateVariant1:true})
                 }
                 else{
-                    setValidateVariant1(false)
+                    setValidateQuestion({...validateQuestion,validateVariant1:false})
                 }
                 break;
             case 'Вариант 2':
-                setVariant2(e.target.value)
-                setTouchedVariant2(true)
+                setQuestion({...question,variants:{...question.variants, variant2:e.target.value}})
+                setTouched({...touched,touchedVariant2:true})
                 if(e.target.value.length>0){
-                    setValidateVariant2(true)
+                    setValidateQuestion({...validateQuestion,validateVariant2:true})
                 }
                 else{
-                    setValidateVariant2(false)
+                    setValidateQuestion({...validateQuestion,validateVariant2:false})
                 }
                 break;
             case 'Вариант 3':
-                 setVariant3(e.target.value)
-                 setTouchedVariant3(true)
+                setQuestion({...question,variants:{...question.variants, variant3:e.target.value}})
+                setTouched({...touched,touchedVariant3:true})
                  if(e.target.value.length>0){
-                    setValidateVariant3(true)
+                    setValidateQuestion({...validateQuestion,validateVariant3:true})
                 }
                 else{
-                    setValidateVariant3(false)
+                    setValidateQuestion({...validateQuestion,validateVariant2:false})
                 }
                 break;
             case 'Вариант 4':
-                setVariant4(e.target.value)
-                setTouchedVariant4(true)
+                setQuestion({...question,variants:{...question.variants, variant4:e.target.value}})
+                setTouched({...touched,touchedVariant4:true})
                 if(e.target.value.length>0){
-                    setValidateVariant4(true)
+                    setValidateQuestion({...validateQuestion,validateVariant4:true})
                 }
                 else{
-                    setValidateVariant4(false)
+                    setValidateQuestion({...validateQuestion,validateVariant4:false})
                 }
                 break;
             default:
@@ -136,27 +159,27 @@ function QuizCreator(){
     function addChangeHadler(){
         let isValidate = validateAll()
         if(isValidate){
-            setQuiz([...quiz,{
+            dispatch(createQuestion(
+                {   
                 id:quiz.length+1,
                 question:question,
                 answer:[
-                    {text: varian1,id:1},
-                    {text: varian2,id:2},
-                    {text: varian3,id:3},
-                    {text: varian4,id:4},
+                    {text: question.variants.varian1,id:1},
+                    {text: question.variants.varian2,id:2},
+                    {text: question.variants.varian3,id:3},
+                    {text: question.variants.varian4,id:4},
                 ],
-                rightAnswerId:rightVariant
-            }])
+                rightAnswerId:question.rightVariant
+                }
+            ))
+            
             makeDefaultState()
         }
     }
     async function createQuizHandler(){
-       try{
-            const response  = await axios.post('https://udemy-quiz-751da-default-rtdb.europe-west1.firebasedatabase.app/quizes.json',quiz)
-            alert(response.status +' Тест создан')
-       }catch(e){
-            alert(e)
-       }
+            dispatch(createQuiz(quiz))
+            makeDefaultState()
+            alert(' Тест создан')
     }
 
     return (
@@ -165,13 +188,13 @@ function QuizCreator(){
                 <h1>Создание теста</h1>
                 <div className={classes.testCreate}>
                     <div className={classes.question}>
-                        <Input label = 'Введите вопрос' type = 'text' value = {question} onChange = {questionChangeHadler} touched = {touchedQuestion} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion}/>
+                        <Input label = 'Введите вопрос' type = 'text' value = {question.question} onChange = {questionChangeHadler} touched = {touched.touchedQuestion} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion.validateQuestion}/>
                     </div>
                     <div className={classes.variants}>
-                        <Input value = {varian1} label = 'Вариант 1' type = 'text' onChange = {variantsChangeHadler} touched = {touchedVariant1} errorMessage = 'Поле не может быть пустым' valid = {validateVariant1}/>
-                        <Input value = {varian2} label = 'Вариант 2' type = 'text' onChange = {variantsChangeHadler} touched = {touchedVariant2} errorMessage = 'Поле не может быть пустым' valid = {validateVariant2}/>
-                        <Input value = {varian3} label = 'Вариант 3' type = 'text' onChange = {variantsChangeHadler} touched = {touchedVariant3} errorMessage = 'Поле не может быть пустым' valid = {validateVariant3}/>
-                        <Input value = {varian4} label = 'Вариант 4' type = 'text' onChange = {variantsChangeHadler} touched = {touchedVariant4} errorMessage = 'Поле не может быть пустым' valid = {validateVariant4}/>
+                        <Input value = {question.variants.variant1} label = 'Вариант 1' type = 'text' onChange = {variantsChangeHadler} touched = {touched.touchedVariant1} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion.validateVariant1}/>
+                        <Input value = {question.variants.variant2} label = 'Вариант 2' type = 'text' onChange = {variantsChangeHadler} touched = {touched.touchedVariant2} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion.validateVariant2}/>
+                        <Input value = {question.variants.variant3} label = 'Вариант 3' type = 'text' onChange = {variantsChangeHadler} touched = {touched.touchedVariant3} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion.validateVariant3}/>
+                        <Input value = {question.variants.variant4} label = 'Вариант 4' type = 'text' onChange = {variantsChangeHadler} touched = {touched.touchedVariant4} errorMessage = 'Поле не может быть пустым' valid = {validateQuestion.validateVariant4}/>
                         <label>Выберите правильный ответ</label>
                         <select onClick={selectChangeHadler} >
                             <option value='1'>1</option>
